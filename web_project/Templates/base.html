@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Budget Buddy{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'category_summary' %}">Summary</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <h1 style="text-align:center">Welcome to Budget Buddy</h1>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Content from child templates will be injected here -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Budget Buddy</p>
+    </footer>
+</body>
+</html>

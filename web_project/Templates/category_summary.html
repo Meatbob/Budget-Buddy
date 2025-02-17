@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Category Summary{% endblock %}
+
+{% block content %}
+<div class="summary-container">
+    <h2>Category Summary</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in category_totals %}
+                <tr>
+                    <td>{{ category.category }}</td>
+                    <td>${{ category.total }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No expenses recorded yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{% url 'home' %}" class="button">Back to Home</a></p>
+</div>
+{% endblock %}

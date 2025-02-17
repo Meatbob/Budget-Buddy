@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    {% if user.is_authenticated %}
+        <h2>Welcome, {{ user.username }}!</h2>
+        <p>We're glad to have you back. Explore the app and manage your expenses!</p>
+
+        <!-- Total Expenses -->
+        <h3>Total Expenses: ${{ total_expenses }}</h3>
+
+        <form method="get" style="margin-bottom: 20px;">
+            <label for="category">Filter by Category:</label>
+            <select name="category" id="category">
+                <option value="" {% if not category_filter %}selected{% endif %}>All</option>
+                <option value="Food" {% if category_filter == "Food" %}selected{% endif %}>Food</option>
+                <option value="Transport" {% if category_filter == "Transport" %}selected{% endif %}>Transport</option>
+                <option value="Entertainment" {% if category_filter == "Entertainment" %}selected{% endif %}>Entertainment</option>
+                <option value="Utilities" {% if category_filter == "Utilities" %}selected{% endif %}>Utilities</option>
+                <option value="Others" {% if category_filter == "Others" %}selected{% endif %}>Others</option>
+            </select>
+            <button type="submit" class="button">Filter</button>
+        </form>
+        
+        <!-- List of Expenses -->
+        <h3>Your Expenses:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.title }}</td>
+                        <td>${{ expense.amount }}</td>
+                        <td>{{ expense.date }}</td>
+                        <td>{{ expense.category }}</td>
+                        <td>
+                            <!-- Delete Button -->
+                            <form method="post" action="{% url 'delete_expense' expense.id %}" style="margin: 0; display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No expenses added yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Add Expense Button -->
+        <p><a href="{% url 'add_expense' %}" class="button">Add Expense</a></p>
+
+        <!-- Logout Button -->
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="button">Logout</button>
+        </form>
+    {% else %}
+        <h2>Welcome to Budget Buddy</h2>
+        <p>Please sign up or login to continue.</p>
+        <p>
+            <a href="{% url 'login' %}" class="button">Login</a>
+            <a href="{% url 'signup' %}" class="button">Sign Up</a>
+        </p>
+    {% endif %}
+</div>
+{% endblock %}
