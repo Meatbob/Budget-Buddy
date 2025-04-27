@@ -1,14 +1,5 @@
-// DOM Loaded
 document.addEventListener("DOMContentLoaded", function () {
     console.log("JavaScript is ready!");
-
-    // Example: Alert on button click
-    const buttons = document.querySelectorAll(".button");
-    buttons.forEach(button => {
-        button.addEventListener("click", function () {
-            alert("Button clicked!");
-        });
-    });
 
     // Example: Confirmation on delete
     const deleteLinks = document.querySelectorAll(".delete-link");
@@ -19,4 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    // Show Password Toggle
+    const showPasswordCheckbox = document.getElementById("show-password");
+    const passwordField = document.getElementById("password");
+
+    // Check if the elements exist before adding the event listener
+    if (showPasswordCheckbox && passwordField) {
+        showPasswordCheckbox.addEventListener("change", function () {
+            // Toggle password field visibility based on the checkbox state
+            passwordField.type = showPasswordCheckbox.checked ? "text" : "password";
+        });
+    }
 });

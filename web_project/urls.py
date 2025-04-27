@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import set_budget
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +37,5 @@ urlpatterns += [
     path('items/create/', views.item_create, name='item_create'),
     path('items/<int:pk>/update', views.item_update, name='item_update'),
     path('items/<int:pk>/delete', views.item_delete, name='item_delete'),
+    path('set-budget/', set_budget, name='set_budget'),
 ]

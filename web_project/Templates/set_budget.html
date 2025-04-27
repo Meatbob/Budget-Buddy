@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="center-wrapper">
+    <div class="budget-container">
+        <h2 style="text-align: center;">Set Budget Goals</h2>
+
+        <!-- Display alert message if set in view -->
+        {% if alert_message %}
+            <div class="alert alert-warning" style="text-align: center; margin-bottom: 20px;">
+                {{ alert_message }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Manually render category dropdown -->
+            <div class="form-group">
+                <label for="id_category">Category:</label>
+                <select name="category" id="id_category">
+                    <option value="">Select Category</option>
+                    {% for choice in category_choices %}
+                        <option value="{{ choice.0 }}" {% if form.category.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Manually render the limit field -->
+            <div class="form-group">
+                <label for="id_limit">Budget Limit:</label>
+                {{ form.limit }}
+            </div>
+
+            <button type="submit" class="button">Save Budget</button>
+        </form>
+
+        <hr>
+        <h3 style="text-align: center;">Existing Budgets</h3>
+        <ul>
+            {% for budget in budgets %}
+                <li>{{ budget.category }}: ${{ budget.limit }}</li>
+            {% empty %}
+                <h4 style="text-align: center;">No budgets set yet.</h4>
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>
+{% endblock %}
+

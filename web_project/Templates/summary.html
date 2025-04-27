@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Category Summary{% endblock %}
+
+{% block content %}
+<div class="summary-container">
+    <h1>Monthly Summary</h1>
+
+    <!-- Form for Month and Year Selection -->
+    <form method="get" style="margin-bottom: 20px;">
+        <label for="month">Select Month:</label>
+        <select name="month" id="month">
+            <option value="1" {% if month == 1 %}selected{% endif %}>January</option>
+            <option value="2" {% if month == 2 %}selected{% endif %}>February</option>
+            <option value="3" {% if month == 3 %}selected{% endif %}>March</option>
+            <option value="4" {% if month == 4 %}selected{% endif %}>April</option>
+            <option value="5" {% if month == 5 %}selected{% endif %}>May</option>
+            <option value="6" {% if month == 6 %}selected{% endif %}>June</option>
+            <option value="7" {% if month == 7 %}selected{% endif %}>July</option>
+            <option value="8" {% if month == 8 %}selected{% endif %}>August</option>
+            <option value="9" {% if month == 9 %}selected{% endif %}>September</option>
+            <option value="10" {% if month == 10 %}selected{% endif %}>October</option>
+            <option value="11" {% if month == 11 %}selected{% endif %}>November</option>
+            <option value="12" {% if month == 12 %}selected{% endif %}>December</option>
+        </select>
+
+        <label for="year">Select Year:</label>
+        <select name="year" id="year">
+            {% for year in years %}
+                <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="button">View</button>
+    </form>
+
+    <h2>{{ month_name }}</h2>
+
+    <!-- Display Category-wise Summary -->
+    <div class="itemized-summary">
+        {% for category, data in expenses_by_category.items %}
+            <h4>
+                {{ category }} (Net Total: 
+                <span style="color: {% if data.total >= 0 %}green{% else %}red{% endif %};">
+                    ${{ data.total }}
+                </span>)
+            </h4>
+            <ul>
+                {% for expense in data.items %}
+                    <li>
+                        {{ expense.date|date:"F j, Y" }} – 
+                        <span style="color: {% if expense.type == 'Income' %}green{% else %}red{% endif %};">
+                            ${{ expense.amount }}
+                        </span> 
+                        ({{ expense.title }})
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+
+    <!-- Display the Total Income, Total Expenses, and Balance -->
+    <p>Income: 
+        <span style="color: green;">${{ income_total }}</span>
+    </p>
+    <p>Expenses: 
+        <span style="color: red;">${{ expense_total }}</span>
+    </p>
+    <p>
+        Balance: 
+        <span style="color: {% if total_balance >= 0 %}green{% else %}red{% endif %};">
+            ${{ total_balance }}
+        </span>
+    </p>
+
+</div>
+{% endblock %}

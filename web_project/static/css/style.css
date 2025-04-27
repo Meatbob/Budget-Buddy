@@ -44,7 +44,7 @@ nav {
 
 /* Buttons */
 .button {
-    width: 80%;
+    width: 100%;
     padding: 10px;
     background-color: orange;
     color: white;
@@ -52,33 +52,17 @@ nav {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .button:hover {
-    background-color: orange;
-}
-
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 5px;
-    background-color: orange;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.button:hover {
-    background-color: orange;
-    text-decoration: none;
+    background-color: darkorange;
 }
 
 /* Forms */
 form {
-    max-width: 500px;
+    max-width: 400px;
     margin: 20px auto;
     padding: 20px;
     background: white;
@@ -92,39 +76,10 @@ form input, form textarea, form select {
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-}
-
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    vertical-align: middle;
-}
-
-table th {
-    background-color: orange;
-    color: white;
-}
-
-/* Footer */
-.footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
+/* Login Form */
 .login-container {
     max-width: 400px;
     margin: 50px auto;
@@ -149,17 +104,16 @@ table th {
     margin-bottom: 5px;
 }
 
-.form-group input {
+.form-group input,
+.form-group button {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
-p {
-    text-align: center;
-}
-
+/* Signup Form */
 .signup-container {
     max-width: 400px;
     margin: 50px auto;
@@ -209,6 +163,26 @@ p {
     font-size: 1.1rem;
 }
 
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+table th {
+    background-color: orange;
+    color: white;
+}
+
 /* Delete Expense Button */
 .delete-button {
     background-color: #e74c3c;
@@ -226,7 +200,6 @@ p {
     background-color: #c0392b;
 }
 
-/* Table cell adjustment for the button */
 td form {
     margin: 0;
     padding: 0;
@@ -234,19 +207,64 @@ td form {
 }
 
 /* Category Summary */
+
+.summary-container h2, h1 {
+    text-align: center;
+}
+
+.summary-container p {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
 .summary-container table {
-    width: 100%;
+    width: 80%;
+    margin: 20px auto;  /* Center the table horizontally */
     border-collapse: collapse;
-    margin: 20px 0;
 }
 
 .summary-container th, .summary-container td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 10px;
+    text-align: center;  /* Center text inside table cells */
 }
 
 .summary-container th {
     background-color: orange;
+    color: white;
     font-weight: bold;
+}
+/* Footer */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Password */
+
+#show-password + label {
+    display: inline-block;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.password-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.password-toggle label {
+    margin-right: 0px;
+    white-space: nowrap;
+}
+
+.password-toggle input[type="checkbox"] {
+    margin-left: 0px;
 }
